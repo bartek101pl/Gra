@@ -21,9 +21,9 @@ namespace engine::base {
 
         ~engineBase()=default;
 
-        void init(InitSetting setting);
+        void init(InitSetting setting); // load setting from struct
 
-        void init(InitSetting setting,std::string filePath);
+        void initFile(std::string filePath); // load setting from file and you mast ad function to save
         void start();
 
     private:
