@@ -7,7 +7,14 @@
 void engine::base::engineBase::init(engine::base::InitSetting setting) {
     //todo make all logic this i only for test
     this->window.create(sf::VideoMode(setting.width,setting.height),"test");
+    if(setting.fullScreen)
+        this->window.sf::Style::Fullscreen;                // If setting.fullScreen is  true - sets Fullscreen.
+
+    if(setting.lockFPS)                                 //  If setting.lockFPS is  true - sets FPS lock.
+        this->window.setFramerateLimit(setting.FPS);
+
     this->eventController.setCurrentScene(&this->testowa);
+
 }
 
 void engine::base::engineBase::start() {
