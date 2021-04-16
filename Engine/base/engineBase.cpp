@@ -13,6 +13,7 @@ void engine::base::engineBase::init(engine::base::InitSetting setting) {
     if(setting.lockFPS)                                 //  If setting.lockFPS is  true - sets FPS lock.
         this->window.setFramerateLimit(setting.FPS);
 
+
     this->eventController.setCurrentScene(&this->testowa);
 
 }
