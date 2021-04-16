@@ -8,7 +8,7 @@
 #include <vector>
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Mouse.hpp>
-
+#include <SFML/Window.hpp>
 #include "staticEvent.h"
 #include "../view/scene.hpp"
 
@@ -22,7 +22,7 @@ namespace engine::event {
         /**
          * Function which is call every loop
          */
-        [[maybe_unused]] void event();
+        [[maybe_unused]] void event(sf::Event e);
 
         /**
          * Set new current use scene
@@ -54,6 +54,10 @@ namespace engine::event {
         * @return std::vector with all keys which is now press
         */
         void GetPressKey(std::vector<Key> *list);
+        void keyPress();
+        void keyRelease();
+        void mouseKeyPress();
+        void mouseKeyRelease();
     };
 }
 
