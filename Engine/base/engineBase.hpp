@@ -8,6 +8,7 @@
 #include "settings.hpp"
 #include <string>
 #include <SFML/Window.hpp>
+#include <fstream>
 
 #include "../event/EventController.hpp"
 #include "../event/staticEvent.h"
