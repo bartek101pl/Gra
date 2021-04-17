@@ -51,13 +51,13 @@ void engine::base::engineBase::loadFromFile(std::string filePath){
     while ( paramFile >> key >> value ) {
         params[key] = value; // input them into the map
     }
-    saveSettingsToMap(params);
+    this->saveSettingsToMap(params);
 
 
 }
 
 void engine::base::engineBase::initFile(std::string filePath){
-    loadFromFile(filePath);
+    this->loadFromFile(filePath);
 }
 
 void engine::base::engineBase::start() {
