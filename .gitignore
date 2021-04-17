@@ -9,4 +9,3 @@ compile_commands.json
 CTestTestfile.cmake
 .idea
 cmake-build-debug
-CMakeLists.txt
