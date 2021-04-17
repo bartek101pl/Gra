@@ -29,9 +29,35 @@ void engine::base::engineBase::init(engine::base::InitSetting setting) {
 
 }
 
+void engine::base::engineBase::saveSettingsToMap(std::map<std::string, int> m){      // Saves m from function parameter to our class variable m
+    this->m = m;
+
+}
+
+
+void engine::base::engineBase::loadFromFile(std::string filePath){
+    /* @return void
+     * This function takes path to file as a parameter, then stores
+     * std::string files to key and int to value, as example: FPS = 30,
+     * FPS will be stored as key and 30 will be stored as value
+     * Later it calls function saveSettingsToMap to save this map value in our class.
+     * IMO if we can't return map as a return value, so I can just call saveSettingsMap in this function
+     * */
+    std::map<std::string, int>params;
+    std::ifstream paramFile;
+    paramFile.open(filePath);
+    std::string key;
+    int value;
+    while ( paramFile >> key >> value ) {
+        params[key] = value; // input them into the map
+    }
+    saveSettingsToMap(params);
+
+
+}
+
 void engine::base::engineBase::initFile(std::string filePath){
-
-
+    loadFromFile(filePath);
 }
 
 void engine::base::engineBase::start() {
