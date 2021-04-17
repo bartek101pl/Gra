@@ -28,7 +28,6 @@ namespace engine::base {
 
         void init(InitSetting setting);
         void loadFromFile(std::string filePath);
-        void saveSettingsToMap(std::map<std::string, int> m);
         void initFile(std::string filePath);
         void start();
 
