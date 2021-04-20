@@ -36,7 +36,7 @@ namespace engine::event {
         /**
          * Current view scene
          */
-        EventObject *object;
+        EventObject *object{};
         /**
          * List of last press keys
          */
@@ -45,15 +45,15 @@ namespace engine::event {
         std::vector<Key> releaseKeys;
 
 
-        bool lastLButtonStatus;
-        bool lastRButtonStatus;
+        bool lastLButtonStatus{};
+        bool lastRButtonStatus{};
         /**
         *
         * auxiliary function to get list of current press keys
         *
         * @return std::vector with all keys which is now press
         */
-        void GetPressKey(std::vector<Key> *list);
+        static void GetPressKey(std::vector<Key> *list);
         void keyPress();
         void keyRelease();
         void mouseKeyPress();

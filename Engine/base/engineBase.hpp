@@ -27,7 +27,7 @@ namespace engine::base {
         ~engineBase()=default;
 
         void init(InitSetting setting);
-        void loadFromFile(std::string filePath);
+        void loadFromFile(const std::string& filePath);
         void initFile(std::string filePath);
         void start();
 

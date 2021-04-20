@@ -4,6 +4,8 @@
 
 #include "engineBase.hpp"
 
+#include <utility>
+
 void engine::base::engineBase::init(engine::base::InitSetting setting) {
     //todo make all logic this i only for test;
     if(setting.fullScreen) {
@@ -31,7 +33,7 @@ void engine::base::engineBase::init(engine::base::InitSetting setting) {
 
 
 
-void engine::base::engineBase::loadFromFile(std::string filePath){
+void engine::base::engineBase::loadFromFile(const std::string& filePath){
     /* @return void
      * This function takes path to file as a parameter, then stores
      * std::string files to key and int to value, as example: FPS = 30,
@@ -50,7 +52,7 @@ void engine::base::engineBase::loadFromFile(std::string filePath){
 }
 
 void engine::base::engineBase::initFile(std::string filePath){
-    this->loadFromFile(filePath);
+    this->loadFromFile(std::move(filePath));
 }
 
 void engine::base::engineBase::start() {
@@ -58,7 +60,7 @@ void engine::base::engineBase::start() {
     {
         //todo you mas add event for freeze game and resume (ALT+TAB itp.)
         //https://www.sfml-dev.org/tutorials/2.5/window-events.php <-helps
-        sf::Event e;
+        sf::Event e{};
         while (window.pollEvent(e))
         {
             if(e.type == sf::Event::Closed)

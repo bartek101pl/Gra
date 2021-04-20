@@ -87,14 +87,14 @@ namespace engine::event {
                 this->releaseKeys.push_back(i);
         }
 
-        if (this->releaseKeys.size() > 0)
+        if (!this->releaseKeys.empty())
             this->object->KeyboardKeyReleaseEvent(&this->releaseKeys);
         this->lastPressKeys = pressKeys;
     }
 
     void EventController::keyPress() {
         this->GetPressKey(&this->pressKeys);
-        if (pressKeys.size() > 0)
+        if (!pressKeys.empty())
             this->object->KeyboardKeyPressEvent(&this->pressKeys);
         this->lastPressKeys = pressKeys;
     }
