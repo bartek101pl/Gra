@@ -9,7 +9,7 @@
 #include <vector>
 #include "../event/staticEvent.h"
 #include "../event/EventObject.hpp"
-
+#include "../object/PhysicsObject.h"
 namespace engine::view {
 
     class scene : public event::EventObject {
@@ -18,6 +18,11 @@ namespace engine::view {
          void MouseKeyReleaseEvent(engine::event::MouseEvent e) final;
          void KeyboardKeyPressEvent(std::vector<event::Key> * keyList) final;
          void KeyboardKeyReleaseEvent(std::vector<event::Key> * keyList) final;
+
+
+    private:
+
+        std::vector<sf::RectangleShape> objects;
 
     };
 }

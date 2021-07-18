@@ -5,14 +5,14 @@
 #ifndef GRA1_GAMEOBJECT_H
 #define GRA1_GAMEOBJECT_H
 
-#include <SFML/Graphics.hpp>
+#include "PhysicsObject.h"
 
 namespace object::gameobjects {
     struct Object{                 //todo struct of known shape types
     };
 
 
-    class GameObject {
+    class GameObject : public physicsobjects::PhysicsObject {
     public:
         GameObject() = default;
 
@@ -20,19 +20,17 @@ namespace object::gameobjects {
 
 
         //Functions
-        sf::RectangleShape getObject();
+        sf::RectangleShape getShape();
 
 
     private:
         // Variables
-        std::vector<sf::RectangleShape> objects;
-        sf::RectangleShape object;
+        sf::RectangleShape shape;
 
 
 
 
-        // Functions
-       // void setVelocity(Object* object, float velocity); [maybe unused]
+        // FunctionS
 
         void initObject();
 

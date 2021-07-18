@@ -26,10 +26,15 @@ namespace engine::base {
 
         ~engineBase()=default;
 
+        // Functions
         void init(InitSetting setting);
         void loadFromFile(std::string filePath);
         void initFile(std::string filePath);
         void start();
+        void renderScene();
+        void update();
+
+
 
     private:
         sf::Window window;

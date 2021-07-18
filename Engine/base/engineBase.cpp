@@ -53,6 +53,15 @@ void engine::base::engineBase::initFile(std::string filePath){
     this->loadFromFile(filePath);
 }
 
+void engine::base::engineBase::renderScene(){
+
+}
+
+void engine::base::engineBase::update(){
+
+
+}
+
 void engine::base::engineBase::start() {
     while (this->window.isOpen())//todo main game loop with all nessery logig to show img, events, etc.
     {

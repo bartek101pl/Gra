@@ -6,21 +6,18 @@
 
 
 
-
 // Functions
-
-sf::RectangleShape object::gameobjects::GameObject::getObject(){
-    return this->object;
+sf::RectangleShape object::gameobjects::GameObject::getShape(){
+    return this->shape;
 }
 
 void object::gameobjects::GameObject::initObject(){
 
 
-
-     this->object.setPosition(10.f, 10.f);               /* sets positions for object ( this coords just  for test, i have plan
+     this->shape.setPosition(10.f, 10.f);               /* sets positions for object ( this coords just  for test, i have plan
                                                                            to make it random in bounds of our playing field */
-     this->object.setSize(sf::Vector2f(100.f, 100.f));
-     this->object.setScale(sf::Vector2f(0.5f, 0.5f));
+     this->shape.setSize(sf::Vector2f(100.f, 100.f));
+     this->shape.setScale(sf::Vector2f(0.5f, 0.5f));
 
 
 
