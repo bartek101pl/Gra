@@ -1,11 +1,8 @@
-#include "Engine/base/engineBase.hpp"
+#include <iostream>
+#include <SFML/Graphics.hpp>
+
 
 int main() {
-engine::base::engineBase engine{};
-engine.init({true, true,800,600,60});
-engine.start();
+    std::cout << "Hello, World! 2" << std::endl;
     return 0;
 }
-
-
-
