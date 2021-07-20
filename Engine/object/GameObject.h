@@ -5,19 +5,33 @@
 #ifndef GRA1_GAMEOBJECT_H
 #define GRA1_GAMEOBJECT_H
 
-namespace object::GameObject {
+#include "../physics/PhysicsObject.h"
+
+namespace engine::object {
 
 
-    class GameObject {
+    class GameObject: public engine::physics::PhysicsObject{
+    public:
         GameObject() = default;
 
         ~GameObject() = default;
 
+
+        //Functions
+        sf::RectangleShape getShape();
+
+
     private:
+        // Variables
+        sf::RectangleShape shape;
 
 
-        // Functions
+
+
+        // FunctionS
+
         void initObject();
+
 
     };
 }

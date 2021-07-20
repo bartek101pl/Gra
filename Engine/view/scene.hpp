@@ -9,6 +9,7 @@
 #include <vector>
 #include "../event/staticEvent.h"
 #include "../event/EventObject.hpp"
+#include "../object/GameObject.h"
 
 namespace engine::view {
 
@@ -18,6 +19,11 @@ namespace engine::view {
          void MouseKeyReleaseEvent(engine::event::MouseEvent e) final;
          void KeyboardKeyPressEvent(std::vector<event::Key> * keyList) final;
          void KeyboardKeyReleaseEvent(std::vector<event::Key> * keyList) final;
+         void addChildren(object::GameObject obj);
+         void update();
+
+    protected:
+        std::vector<engine::object::GameObject> *children = nullptr;
 
     };
 }
