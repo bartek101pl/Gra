@@ -8,8 +8,8 @@
 namespace engine::base{
 
     struct InitSetting{
-        bool fullScreen{}; //if is true width and height will set auto in init
-        bool lockFPS{}; // if is set FPS value is required
+        bool fullScreen; //if is true width and height will set auto in init
+        bool lockFPS; // if is set FPS value is required
         int width = 0;
         int height = 0;
         int FPS = 0;

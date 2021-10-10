@@ -5,19 +5,19 @@
 #include "engineBase.hpp"
 
 #include <utility>
-
+sf::Time engine::base::engineBase::deltaTime;
 void engine::base::engineBase::init(engine::base::InitSetting setting) {
+
+    this->sceneC = SceneController::getInstance();
+
+    this->eventController = event::EventController::getInstance();
+    this->eventController->init();
+
     //todo make all logic this i only for test;
     if(setting.fullScreen) {
         this->window.create(sf::VideoMode::getFullscreenModes()[0],
                             "test",
                             sf::Style::Fullscreen);
-                                                                                    /* If setting.fullScreen is  true - sets Fullscreen.
-                                                                                         Function getFullscreenModes returns an array
-                                                                                          which sorted from higher quality to lower.
-                                                                                          So the first element with index 0 - best ratio.
-                                                                                          At this moment it's the best choice IMO
-                                                                                                  */
     }
      else if(!setting.fullScreen)
     this->window.create(sf::VideoMode(setting.width,setting.height),"test");
@@ -27,10 +27,9 @@ void engine::base::engineBase::init(engine::base::InitSetting setting) {
         this->window.setFramerateLimit(setting.FPS);
 
 
-    this->eventController.setCurrentScene(&this->testowa);
+
 
 }
-
 
 
 void engine::base::engineBase::loadFromFile(const std::string& filePath){
@@ -55,10 +54,11 @@ void engine::base::engineBase::initFile(std::string filePath){
     this->loadFromFile(std::move(filePath));
 }
 
-void engine::base::engineBase::start() {
-    while (this->window.isOpen())//todo main game loop with all nessery logig to show img, events, etc.
+void engine::base::engineBase::start(int idScean) {
+    this->sceneC->setCurrentScene(idScean);
+    while (this->window.isOpen())//todo main game loop with all nessery logig to show img, events, e.t.c.
     {
-        //todo you mas add event for freeze game and resume (ALT+TAB itp.)
+        //todo you mast add event for freeze game and resume (ALT+TAB e.t.c.)
         //https://www.sfml-dev.org/tutorials/2.5/window-events.php <-helps
         sf::Event e{};
         while (window.pollEvent(e))
@@ -66,7 +66,17 @@ void engine::base::engineBase::start() {
             if(e.type == sf::Event::Closed)
                 this->window.close(); // is necessary
             else
-                this->eventController.event(e); //all events from Keyboard and Mouse are handled by the event controller
+                this->eventController->event(e); //all events from Keyboard and Mouse are handled by the event controller
         }
+
+        this->eventController->keyRelease();
+        this->eventController->keyPress();
+
+        this->sceneC->getCurrentScene()->updateEvent();
+        this->window.clear(sf::Color::Black);
+        this->window.draw(*this->sceneC->getCurrentScene());
+        this->window.display();
+        deltaTime = this->timer.restart();
     }
+
 }

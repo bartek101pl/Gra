@@ -6,11 +6,13 @@
 
 namespace engine::event {
 
+    EventController* EventController::_singleton;
+
     EventController::~EventController() {
-        delete this->object;
+        delete this->sceneC;
     }
 
-    [[maybe_unused]] void EventController::event(sf::Event e) {
+    void EventController::event(sf::Event e) {
 
         switch (e.type) {
             case sf::Event::MouseButtonReleased:
@@ -21,18 +23,18 @@ namespace engine::event {
                 this->mouseKeyPress();
 
                 break;
-            case sf::Event::KeyReleased:
-                this->keyRelease();
-                break;
-            case sf::Event::KeyPressed:
-                this->keyPress();
-                break;
+//            case sf::Event::KeyReleased:
+//                this->keyRelease();
+//                break;
+//            case sf::Event::KeyPressed:
+//                this->keyPress();
+//                break;
         }
 
     }
 
 
-    [[maybe_unused]]  void EventController::GetPressKey(std::vector<Key> *list) {
+    void EventController::GetPressKey(std::vector<Key> *list) {
         list->clear();
         for (int i = -1; i < sf::Keyboard::KeyCount; ++i) {
             if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key) i))
@@ -40,18 +42,15 @@ namespace engine::event {
         }
     }
 
-    [[maybe_unused]]  void EventController::setCurrentScene(view::scene *scene) {
-        this->object = scene;
-    }
 
     void EventController::mouseKeyRelease() {
         bool lButtonStatus = sf::Mouse::isButtonPressed(sf::Mouse::Left);
         bool rButtonStatus = sf::Mouse::isButtonPressed(sf::Mouse::Right);
 
         if (!lButtonStatus && lastLButtonStatus)
-            this->object->MouseKeyReleaseEvent(LButton);
+            this->sceneC->getCurrentScene()->MouseKeyReleaseEvent(LButton);
         if (!rButtonStatus && lastRButtonStatus)
-            this->object->MouseKeyReleaseEvent(RButton);
+            this->sceneC->getCurrentScene()->MouseKeyReleaseEvent(RButton);
         this->lastLButtonStatus = lButtonStatus;
         this->lastRButtonStatus = rButtonStatus;
     }
@@ -61,9 +60,9 @@ namespace engine::event {
         bool rButtonStatus = sf::Mouse::isButtonPressed(sf::Mouse::Right);
 
         if (lButtonStatus)
-            this->object->MouseKeyPressEvent(LButton);
+            this->sceneC->getCurrentScene()->MouseKeyPressEvent(LButton);
         if (rButtonStatus)
-            this->object->MouseKeyPressEvent(RButton);
+            this->sceneC->getCurrentScene()->MouseKeyPressEvent(RButton);
 
         this->lastLButtonStatus = lButtonStatus;
         this->lastRButtonStatus = rButtonStatus;
@@ -88,15 +87,25 @@ namespace engine::event {
         }
 
         if (!this->releaseKeys.empty())
-            this->object->KeyboardKeyReleaseEvent(&this->releaseKeys);
+            this->sceneC->getCurrentScene()->KeyboardKeyReleaseEvent(&this->releaseKeys);
         this->lastPressKeys = pressKeys;
     }
 
     void EventController::keyPress() {
         this->GetPressKey(&this->pressKeys);
         if (!pressKeys.empty())
-            this->object->KeyboardKeyPressEvent(&this->pressKeys);
+            this->sceneC->getCurrentScene()->KeyboardKeyPressEvent(&this->pressKeys);
         this->lastPressKeys = pressKeys;
+    }
+
+    void EventController::init() {
+        this->sceneC = engine::base::SceneController::getInstance();
+    }
+
+    EventController *EventController::getInstance() {
+        if(_singleton == nullptr)
+            _singleton = new EventController();
+        return _singleton;
     }
 
 }

@@ -11,6 +11,7 @@
 #include <SFML/Window.hpp>
 #include "staticEvent.h"
 #include "../view/scene.hpp"
+#include "../base/SceneController/SceneController.hpp"
 
 namespace engine::event {
     class EventController {
@@ -18,25 +19,26 @@ namespace engine::event {
         EventController() = default;
 
         ~EventController();
+        static EventController* _singleton;
+        static EventController* getInstance();
 
         /**
          * Function which is call every loop
          */
-        [[maybe_unused]] void event(sf::Event e);
-
-        /**
-         * Set new current use scene
-         */
-        void setCurrentScene(view::scene *scene);
-
+        void event(sf::Event e);
+        void keyPress();
+        void keyRelease();
+        void init();
     private:
+
+        engine::base::SceneController* sceneC;
 
         bool flag = true;
 
         /**
          * Current view scene
          */
-        EventObject *object{};
+//        EventObject *object{};
         /**
          * List of last press keys
          */
@@ -47,15 +49,9 @@ namespace engine::event {
 
         bool lastLButtonStatus{};
         bool lastRButtonStatus{};
-        /**
-        *
-        * auxiliary function to get list of current press keys
-        *
-        * @return std::vector with all keys which is now press
-        */
+
         static void GetPressKey(std::vector<Key> *list);
-        void keyPress();
-        void keyRelease();
+
         void mouseKeyPress();
         void mouseKeyRelease();
     };

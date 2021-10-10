@@ -4,31 +4,18 @@
 
 #include "scene.hpp"
 
-void engine::view::scene::KeyboardKeyPressEvent(std::vector<event::Key> *keyList) {
-    std::cout<<"KeyboardKeyPress: "<<keyList->size()<<std::endl;
+engine::view::scene::scene(std::string name) {
+    this->name = name;
 }
 
-void engine::view::scene::KeyboardKeyReleaseEvent(std::vector<event::Key> *keyList) {
-    std::cout<<"KeyboardKeyRelease: "<<keyList->size()<<std::endl;
+std::string engine::view::scene::getName() {
+    return this->name;
 }
 
-void engine::view::scene::MouseKeyReleaseEvent(engine::event::MouseEvent e) {
-    std::cout<<"MouseEventRelease: "<<e<<std::endl;
-
+void engine::view::scene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    if(this->children!= nullptr)
+        for (auto& item : *this->children)
+        {
+            ((engine::object::GameObject*)item)->draw(target,states);
+        }
 }
-
-void engine::view::scene::MouseKeyPressEvent(engine::event::MouseEvent e) {
-    std::cout<<"MouseEventPress: "<<e<<std::endl;
-}
-
-void engine::view::scene::update() {
-
-}
-
-void engine::view::scene::addChildren(engine::object::GameObject obj) {
-    if(this->children == nullptr)
-        this->children = new std::vector<engine::object::GameObject>();
-    this->children->push_back(obj);
-}
-
-
