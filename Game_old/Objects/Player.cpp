@@ -4,16 +4,19 @@
 
 #include "Player.hpp"
 #include "../../Engine/base/engineBase.hpp"
-#include <iostream>
+
 void Player::onInit()
 {
+    this->idle = new Animation(&this->shape,"../assets/player/redhat","idle.am",25,true);
+    this->LRun = new Animation(&this->shape,"../assets/player/redhat","LRun.am",25,true);
+    this->RRun = new Animation(&this->shape,"../assets/player/redhat","RRun.am",25,true);
+    this->Rjump = new Animation(&this->shape,"../assets/player/redhat","RJump.am",25,false);
+    this->Ljump = new Animation(&this->shape,"../assets/player/redhat","LJump.am",25, false);
 
-    if(this->texture.loadFromFile("../assets/player.png"))
-    {
-        this->shape.setSize(sf::Vector2f(50.f,75.f));
-        this->shape.setTexture(&this->texture);
+        this->shape.setSize(sf::Vector2f(55.f,71.f));
+//        this->shape.setTexture(&this->texture);
         this->shape.setPosition(100,100);
-    }
+
     this->isBlock = true;
 }
 void Player::onKeyPressEvent(std::vector<engine::event::Key> * keyList)
@@ -56,6 +59,13 @@ void Player::onUpdate() {
     if(this->flag) {
         pos.y = pos.y - (this->V1 * dt - ((G * dt * dt) / 2));
         this->V1 = this->V1 - this->G * dt;
+        if((this->V2<1)||!flag2 )
+        {
+            this->Rjump->update();
+        }else  if(( this->V2>-1)||!flag2 )
+        {
+            this->Ljump->update();
+        }
     }
     if((status == 'l'&& this->V2<1)||!flag2 )
     {
@@ -72,15 +82,22 @@ void Player::onUpdate() {
         if(status == 'l') {
             pos.x -= (this->V2 * dt - ((T * dt * dt) / 2));
             this->V2 = this->V2 - this->T * dt;
+            if(!this->flag)
+                this->LRun->update(this->V2/100.f);
         }
         else {
             pos.x -= (this->V2 * dt + ((T * dt * dt) / 2));
             this->V2 = this->V2 + this->T * dt;
+            if(!this->flag)
+                this->RRun->update(this->V2/-100.f);
         }
 
     }
     this->shape.setPosition(pos);
-
+    if(!this->flag && !this->flag2)
+    {
+        this->idle->update();
+    }
 }
 
 void Player::leftCollision(engine::object::GameObject *obj) {

@@ -5,6 +5,7 @@
 #ifndef GRA_PLAYER_HPP
 #define GRA_PLAYER_HPP
 #include "../../Engine/object/GameObject.h"
+#include "../../Engine/Animation/Animation.hpp"
 
 class Player: public engine::object::GameObject {
 public:
@@ -26,6 +27,11 @@ private:
     bool flag = true;
     bool flag2 = false;
     char status = 'n';
+    Animation *idle;
+    Animation *LRun;
+    Animation *RRun;
+    Animation *Ljump;
+    Animation *Rjump;
 };
 
 
