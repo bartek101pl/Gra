@@ -7,7 +7,7 @@
 
 #include <SFML/Window/Keyboard.hpp>
 
-namespace engine::event {
+namespace engine { namespace event {
     typedef sf::Keyboard::Key Key;
 
 //    /**
@@ -30,5 +30,5 @@ enum MouseEvent{
     ScrollDow
 };
 
-}
+} }
 #endif //GRA_STATICEVENT_H
