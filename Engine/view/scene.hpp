@@ -5,25 +5,23 @@
 #ifndef GRA_SCENE_HPP
 #define GRA_SCENE_HPP
 
-#include <iostream> //todo remove after test
+
 #include <vector>
 #include "../event/staticEvent.h"
 #include "../event/EventObject.hpp"
 #include "../object/GameObject.h"
+#include "../event/AbstractUserEventObject.hpp"
+#include "../object/AbstractGameObject.hpp"
 
 namespace engine::view {
 
-    class scene : public event::EventObject {
+    class scene : public engine::object::AbstractGameObject, public sf::Drawable{
     public:
-         void MouseKeyPressEvent(engine::event::MouseEvent e) final;
-         void MouseKeyReleaseEvent(engine::event::MouseEvent e) final;
-         void KeyboardKeyPressEvent(std::vector<event::Key> * keyList) final;
-         void KeyboardKeyReleaseEvent(std::vector<event::Key> * keyList) final;
-         void addChildren(object::GameObject obj);
-         void update();
-
+        scene(std::string name);
+        virtual std::string getName() final;
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     protected:
-        std::vector<engine::object::GameObject> *children = nullptr;
+        std::string name;
 
     };
 }

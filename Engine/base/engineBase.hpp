@@ -12,11 +12,12 @@
 #include <string>
 #include <SFML/Window.hpp>
 #include <map>
-
+#include "SFML/Graphics.hpp"
 
 #include "../event/EventController.hpp"
 #include "../event/staticEvent.h"
 #include "../view/scene.hpp"
+#include "SceneController/SceneController.hpp"
 
 namespace engine::base {
 
@@ -29,13 +30,15 @@ namespace engine::base {
         void init(InitSetting setting);
         void loadFromFile(const std::string& filePath);
         void initFile(std::string filePath);
-        void start();
-
+        void start(int idScean);
+        void addNewScene(engine::view::scene *scene);
+        static sf::Time deltaTime ;
     private:
-        sf::Window window;
-        event::EventController eventController{};
-        view::scene testowa{};
+        sf::RenderWindow window;
+        event::EventController* eventController;
         std::map<std::string, int> m;
+        SceneController* sceneC;
+        sf::Clock timer;
                                        /* Uses map to store values of type std::string and int. as example FPS = 30;
                                         * FPS will be stored as "FPS" and 30 will be stored as 30.
                                         * */

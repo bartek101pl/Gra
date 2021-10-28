@@ -9,7 +9,7 @@
 
 #include "staticEvent.h"
 
-namespace engine::event {
+namespace engine { namespace event {
     class EventObject {
     public:
         //virtual function for events
@@ -21,6 +21,6 @@ namespace engine::event {
         virtual void KeyboardKeyPressEvent(std::vector<event::Key> * keyList);
         virtual void KeyboardKeyReleaseEvent(std::vector<event::Key> * keyList);
     };
-}
+} }
 
 #endif //GRA_EVENTOBJECT_HPP
