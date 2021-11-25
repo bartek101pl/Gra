@@ -9,6 +9,7 @@
 #include "../event/EventObject.hpp"
 #include "../event/AbstractUserEventObject.hpp"
 #include "AbstractGameObject.hpp"
+#include "../view/scene.hpp"
 
 namespace engine::object {
 
@@ -35,8 +36,10 @@ namespace engine::object {
         sf::RectangleShape getShape();
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
         void collisionCalc(GameObject *ob1);
+
     protected:
         // Variables
+
         sf::RectangleShape shape;
         GameObject *lastColButton = nullptr;
         GameObject *lastColUp = nullptr;
@@ -50,6 +53,7 @@ namespace engine::object {
         // FunctionS
 
         void initObject();
+        void help(GameObject *ob1);
 
     };
 }

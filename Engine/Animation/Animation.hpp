@@ -8,24 +8,26 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
 #include <fstream>
+namespace engine::animation {
+    class Animation {
+    public:
 
-class Animation {
-public:
+        Animation(sf::Shape *object, std::string filepath, std::string configfilename, uint8_t fps, bool rep);
 
-    Animation(sf::Shape *object, std::string filepath , std::string configfilename ,uint8_t fps, bool rep);
-    void update();
-    void update(float s);
+        void update();
 
-private:
-    sf::Shape * object; // pointer to animate object shape
-    std::string filepath; // path to config file
-    std::vector<sf::Texture> files; // table file
-    float dt;
-    float dtL = 0;
-    int i;
-    bool rep;
-    int fps;
-};
+        void update(float s);
 
+    private:
+        sf::Shape *object; // pointer to animate object shape
+        std::string filepath; // path to config file
+        std::vector<sf::Texture> files; // table file
+        float dt;
+        float dtL = 0;
+        int i;
+        bool rep;
+        int fps;
+    };
+}
 
 #endif //GRA_ANIMATION_HPP

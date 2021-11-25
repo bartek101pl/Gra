@@ -12,11 +12,11 @@ void engine::event::AbstractUserEventObject::onKeyReleaseEvent(std::vector<event
 
 }
 
-void engine::event::AbstractUserEventObject::onMousePressEvent(engine::event::MouseEvent e) {
+void engine::event::AbstractUserEventObject::onMousePressEvent(engine::event::MouseEvent e, sf::Vector2i pos) {
 
 }
 
-void engine::event::AbstractUserEventObject::onMouseReleaseEvent(engine::event::MouseEvent e) {
+void engine::event::AbstractUserEventObject::onMouseReleaseEvent(engine::event::MouseEvent e, sf::Vector2i pos) {
 
 }
 

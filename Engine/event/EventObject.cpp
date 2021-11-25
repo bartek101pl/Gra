@@ -12,11 +12,11 @@ void engine::event::EventObject::KeyboardKeyReleaseEvent(std::vector<event::Key>
 
 }
 
-void engine::event::EventObject::MouseKeyPressEvent(engine::event::MouseEvent event) {
+void engine::event::EventObject::MouseKeyPressEvent(engine::event::MouseEvent event, sf::Vector2i pos) {
 
 }
 
-void engine::event::EventObject::MouseKeyReleaseEvent(engine::event::MouseEvent event) {
+void engine::event::EventObject::MouseKeyReleaseEvent(engine::event::MouseEvent event, sf::Vector2i pos) {
 
 }
 //

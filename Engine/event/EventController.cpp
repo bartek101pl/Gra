@@ -48,9 +48,9 @@ namespace engine::event {
         bool rButtonStatus = sf::Mouse::isButtonPressed(sf::Mouse::Right);
 
         if (!lButtonStatus && lastLButtonStatus)
-            this->sceneC->getCurrentScene()->MouseKeyReleaseEvent(LButton);
+            this->sceneC->getCurrentScene()->MouseKeyReleaseEvent(LButton,mousePos);
         if (!rButtonStatus && lastRButtonStatus)
-            this->sceneC->getCurrentScene()->MouseKeyReleaseEvent(RButton);
+            this->sceneC->getCurrentScene()->MouseKeyReleaseEvent(RButton,mousePos);
         this->lastLButtonStatus = lButtonStatus;
         this->lastRButtonStatus = rButtonStatus;
     }
@@ -60,9 +60,9 @@ namespace engine::event {
         bool rButtonStatus = sf::Mouse::isButtonPressed(sf::Mouse::Right);
 
         if (lButtonStatus)
-            this->sceneC->getCurrentScene()->MouseKeyPressEvent(LButton);
+            this->sceneC->getCurrentScene()->MouseKeyPressEvent(LButton,this->mousePos);
         if (rButtonStatus)
-            this->sceneC->getCurrentScene()->MouseKeyPressEvent(RButton);
+            this->sceneC->getCurrentScene()->MouseKeyPressEvent(RButton,this->mousePos);
 
         this->lastLButtonStatus = lButtonStatus;
         this->lastRButtonStatus = rButtonStatus;
@@ -106,6 +106,10 @@ namespace engine::event {
         if(_singleton == nullptr)
             _singleton = new EventController();
         return _singleton;
+    }
+
+    void EventController::setMousePos(sf::Vector2i pos) {
+        this->mousePos = pos;
     }
 
 }

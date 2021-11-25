@@ -10,13 +10,14 @@
 #include "../exception/OutOfRangeException.hpp"
 #include "../exception/NullObjectException.hpp"
 #include "string"
+#include "SFML/Graphics.hpp"
 namespace engine::object {
     class AbstractGameObject: public event::EventObject, public event::AbstractUserEventObject{
     public:
         ~AbstractGameObject();
         //function to implement event system
-        void MouseKeyPressEvent(engine::event::MouseEvent e) final;
-        void MouseKeyReleaseEvent(engine::event::MouseEvent e) final;
+        void MouseKeyPressEvent(engine::event::MouseEvent e, sf::Vector2i pos) final;
+        void MouseKeyReleaseEvent(engine::event::MouseEvent e, sf::Vector2i pos) final;
         void KeyboardKeyPressEvent(std::vector<event::Key> * keyList) final;
         void KeyboardKeyReleaseEvent(std::vector<event::Key> * keyList) final;
         void initEvet();
@@ -25,10 +26,11 @@ namespace engine::object {
         virtual void addChildren(AbstractGameObject *obj) final;
         virtual void deleteChildren(int id) final;
         virtual int getId(AbstractGameObject *obj) final;
-
+        virtual AbstractGameObject* getChildren(int id) final;
     protected:
+        void setParent(AbstractGameObject * parent);
         std::vector<AbstractGameObject*> *children = nullptr;
-
+        AbstractGameObject *parent = nullptr;
     };
 }
 

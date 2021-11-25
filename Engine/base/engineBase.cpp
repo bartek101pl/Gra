@@ -4,7 +4,7 @@
 
 #include "engineBase.hpp"
 
-#include <utility>
+//#include <utility>
 sf::Time engine::base::engineBase::deltaTime;
 void engine::base::engineBase::init(engine::base::InitSetting setting) {
 
@@ -71,7 +71,7 @@ void engine::base::engineBase::start(int idScean) {
 
         this->eventController->keyRelease();
         this->eventController->keyPress();
-
+        this->eventController->setMousePos(sf::Mouse::getPosition(this->window));
         this->sceneC->getCurrentScene()->updateEvent();
         this->window.clear(sf::Color::Black);
         this->window.draw(*this->sceneC->getCurrentScene());

@@ -4,7 +4,7 @@
 
 #include "Animation.hpp"
 #include "../../Engine/base/engineBase.hpp"
-
+using namespace engine::animation;
 Animation::Animation(sf::Shape *object, std::string filepath,std::string configfilename, uint8_t fps,bool rep) {
 
     this->dt = 1/((float) fps);

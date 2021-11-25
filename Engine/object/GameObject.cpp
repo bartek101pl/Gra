@@ -36,7 +36,7 @@ void engine::object::GameObject::draw(sf::RenderTarget &target, sf::RenderStates
 }
 
 void engine::object::GameObject::collisionCalc(GameObject *ob1) {
-    if(this->isBlock&& ob1->isBlock) {
+    if((this->isBlock&& ob1->isBlock)) {
         if (this->shape.getPosition().x < ob1->shape.getPosition().x + ob1->shape.getSize().x &&
             this->shape.getPosition().x + this->shape.getSize().x > ob1->shape.getPosition().x &&
             this->shape.getPosition().y < ob1->shape.getPosition().y + ob1->shape.getSize().y &&
@@ -124,19 +124,23 @@ void engine::object::GameObject::collisionCalc(GameObject *ob1) {
     }
     else
     {
+        auto a = this->shape.getPosition();
+        auto as = this->shape.getSize();
+        auto b = ob1->shape.getPosition();
+        auto bs = ob1->shape.getSize();
 
-            if (this->shape.getPosition().x < ob1->shape.getPosition().x + ob1->shape.getSize().x &&
-                this->shape.getPosition().x + this->shape.getSize().x > ob1->shape.getPosition().x &&
-                this->shape.getPosition().y < ob1->shape.getPosition().y + ob1->shape.getSize().y &&
-                this->shape.getPosition().y + this->shape.getSize().y > ob1->shape.getPosition().y)
+            if  (a.x < b.x + bs.x &&
+                 a.x + as.x > b.x &&
+                 a.y < b.y + bs.y &&
+                 as.y + a.y > b.y)
             {
                 if(!this->isBlock)
                 {
-                    this->enterCollision();
+                    this->enterCollision(ob1);
                 }
                 if(!ob1->isBlock)
                 {
-                    ob1->enterCollision();
+                    ob1->enterCollision(this);
                 }
             }else
             {

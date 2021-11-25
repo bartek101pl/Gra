@@ -20,19 +20,19 @@ void engine::object::AbstractGameObject::KeyboardKeyReleaseEvent(std::vector<eve
         }
 }
 
-void engine::object::AbstractGameObject::MouseKeyReleaseEvent(engine::event::MouseEvent e) {
-    this->onMouseReleaseEvent(e);
+void engine::object::AbstractGameObject::MouseKeyReleaseEvent(engine::event::MouseEvent e, sf::Vector2i pos) {
+    this->onMouseReleaseEvent(e,pos);
     if(this->children!= nullptr)
         for (auto &i: *this->children) {
-            i->MouseKeyReleaseEvent(e);
+            i->MouseKeyReleaseEvent(e,pos);
         }
 }
 
-void engine::object::AbstractGameObject::MouseKeyPressEvent(engine::event::MouseEvent e) {
-    this->onMousePressEvent(e);
+void engine::object::AbstractGameObject::MouseKeyPressEvent(engine::event::MouseEvent e, sf::Vector2i pos) {
+    this->onMousePressEvent(e,pos);
     if(this->children!= nullptr)
         for (auto &i: *this->children) {
-            i->MouseKeyPressEvent(e);
+            i->MouseKeyPressEvent(e,pos);
         }
 }
 
@@ -66,7 +66,9 @@ void engine::object::AbstractGameObject::initEvet() {
 void engine::object::AbstractGameObject::addChildren(engine::object::AbstractGameObject *obj) {
         if(this->children == nullptr)
             this->children = new std::vector<engine::object::AbstractGameObject*>();
+        obj->setParent(this);
         this->children->push_back(obj);
+        obj->onInit();
 
 }
 
@@ -97,6 +99,14 @@ int engine::object::AbstractGameObject::getId(AbstractGameObject *obj) {
         }
     }
     return a;
+}
+
+void engine::object::AbstractGameObject::setParent(engine::object::AbstractGameObject *parent) {
+this->parent = parent;
+}
+
+engine::object::AbstractGameObject *engine::object::AbstractGameObject::getChildren(int id) {
+    return (this->children->at(id));
 }
 
 

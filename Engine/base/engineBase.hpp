@@ -35,9 +35,9 @@ namespace engine::base {
         static sf::Time deltaTime ;
     private:
         sf::RenderWindow window;
-        event::EventController* eventController;
+        engine::event::EventController* eventController;
         std::map<std::string, int> m;
-        SceneController* sceneC;
+        engine::base::SceneController* sceneC;
         sf::Clock timer;
                                        /* Uses map to store values of type std::string and int. as example FPS = 30;
                                         * FPS will be stored as "FPS" and 30 will be stored as 30.

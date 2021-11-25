@@ -9,9 +9,11 @@
 #include "../../view/scene.hpp"
 #include "../../exception/OutOfRangeException.hpp"
 #include "../../exception//ItemExistException.hpp"
+
 #include <string>
 
 namespace engine::base {
+
     class SceneController {
 
     private:

@@ -12,8 +12,10 @@
 #include "staticEvent.h"
 #include "../view/scene.hpp"
 #include "../base/SceneController/SceneController.hpp"
+#include <SFML/System/Vector2.hpp>
 
 namespace engine::event {
+
     class EventController {
     public:
         EventController() = default;
@@ -29,6 +31,7 @@ namespace engine::event {
         void keyPress();
         void keyRelease();
         void init();
+        void setMousePos(sf::Vector2i pos);
     private:
 
         engine::base::SceneController* sceneC;
@@ -45,7 +48,7 @@ namespace engine::event {
         std::vector<Key> lastPressKeys;
         std::vector<Key> pressKeys;
         std::vector<Key> releaseKeys;
-
+        sf::Vector2i mousePos;
 
         bool lastLButtonStatus{};
         bool lastRButtonStatus{};
@@ -55,6 +58,7 @@ namespace engine::event {
         void mouseKeyPress();
         void mouseKeyRelease();
     };
+
 }
 
 #endif //GRA_EVENTCONTROLLER_HPP
