@@ -68,7 +68,7 @@ void engine::base::engineBase::start(int idScean) {
             else
                 this->eventController->event(e); //all events from Keyboard and Mouse are handled by the event controller
         }
-
+        this->sceneC->update();
         this->eventController->keyRelease();
         this->eventController->keyPress();
         this->eventController->setMousePos(sf::Mouse::getPosition(this->window));

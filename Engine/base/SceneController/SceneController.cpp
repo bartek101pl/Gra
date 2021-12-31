@@ -54,11 +54,13 @@ bool engine::base::SceneController::isRegister(std::string name) {
 }
 
 void engine::base::SceneController::setCurrentScene(int id) {
-    if(this->sceneList.size()>id && id>=0)
-        this->currentScene=id;
+    if(this->sceneList.size()>id && id>=0) {
+        this->newScene = id;
+        this->isChange = false;
+    }
     else
         throw engine::exception::OutOfRangeException("Id out of scene list size!");
-    this->sceneList.at(this->currentScene)->initEvet();
+
 }
 
 void engine::base::SceneController::setCurrentScene(std::string name) {
@@ -78,4 +80,17 @@ engine::base::SceneController *engine::base::SceneController::getInstance() {
     if(_singleton == nullptr)
         _singleton = new SceneController();
     return _singleton;
+}
+
+int engine::base::SceneController::getId() {
+    return this->currentScene;
+}
+
+void engine::base::SceneController::update() {
+    if(!this->isChange) {
+        this->sceneList.at(this->currentScene)->destroyed();
+        this->currentScene = this->newScene;
+        this->isChange = true;
+        this->sceneList.at(this->currentScene)->initEvet();
+    }
 }

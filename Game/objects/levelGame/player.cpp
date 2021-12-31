@@ -32,14 +32,17 @@ void player::onKeyPressEvent(std::vector<engine::event::Key> * keyList)
         //left
     }
 
-    if(this->isKeyPress(*keyList,sf::Keyboard::Key::Space)&&!this->flag)
+    if((this->isKeyPress(*keyList,sf::Keyboard::Key::Space)||this->isKeyPress(*keyList,sf::Keyboard::Key::Up)||this->isKeyPress(*keyList,sf::Keyboard::Key::W))&&!this->flag)
     {
         flag = true;
         this->V1 = 100;
 
         //jump
     }
-
+    if(this->isKeyPress(*keyList, sf::Keyboard::Key::Down)||this->isKeyPress(*keyList,sf::Keyboard::Key::S))
+    {
+        this->V1-=10;
+    }
 
 
 
@@ -126,6 +129,7 @@ void player::upCollision(engine::object::GameObject *obj) {
 
 void player::downCollision(engine::object::GameObject *obj) {
     this->flag = false;
+    this->V1 = 0;
     T = 100;
 }
 

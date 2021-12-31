@@ -9,7 +9,6 @@
 #include "levelGame.h"
 #include <iostream>
 void menu::onInit() {
-    if(!this->isok) {
         this->addChildren(new bg("../assets/bg.jpg"));
         int x = (1000 - 300) / 2;
         int y = 100;
@@ -22,12 +21,10 @@ void menu::onInit() {
                 new button1("../assets/buttonBG.png", sf::Color::Black, "Poziom 3", 30, x, y + (2 * 120), 300, 100, 80,
                             25, 3));
         std::cout << this->children->size() << std::endl;
-        this->isok = true;
-    }
+
 }
 
 void menu::onclic1() {
-
 engine::base::SceneController::getInstance()->setCurrentScene(1);
 }
 void menu::onclic2() {

@@ -11,11 +11,13 @@
 #include <ctime>
 #include "../../Engine/base/SceneController/SceneController.hpp"
 
+
 levelGame::levelGame(std::string name, int levelType): engine::view::scene(name){
     this->levelType = levelType;
 }
 
 void levelGame::onInit() {
+//    std::cout<<"Size: ";std::cout<< this->children->size()<<std::endl;
     this->gen = std::mt19937(this->rd());
     //TODO improve level loading
     switch (this->levelType) {
@@ -27,7 +29,7 @@ void levelGame::onInit() {
             this->addChildren(new Wall("../assets/platform/desert/Tile/2.png",-20,770,1020,30));
             this->addChildren(new Wall("../assets/platform/desert/Tile/2.png",-20,-20,1020,30));
             for (int i = 660; i >80 ; i-=130) {
-                int s = 160;
+                int s = 120;
                 std::uniform_int_distribution<> distC(10,(940/2)-s);
                 int c = distC(this->gen);
 
@@ -53,6 +55,11 @@ void levelGame::onInit() {
                                 this->pointsArea.at(c).getY()-50, 50,50, false));
         break;
     }
+    this->t = new timer(30,30,775);
+    this->addChildren(t);
+    this->pointsShow = new PointsShow(600,775);
+    this->addChildren(this->pointsShow);
+
 }
 
 void levelGame::onUpdate() {
@@ -69,12 +76,14 @@ void levelGame::onUpdate() {
 }
 
 void levelGame::hit() {
-    this->onDestroyed();
+
     engine::base::SceneController::getInstance()->setCurrentScene(0);
 }
 
 void levelGame::point(ObjectD* obj) {
     std::cout<<"POINT"<<std::endl;
+    this->pointsShow->addPoint(1);
+this->t->addTime(25);
     for (int i = 0; i < this->children->size(); ++i) {
         if(obj == (ObjectD*) this->children->at(i))
         {
@@ -90,11 +99,8 @@ void levelGame::point(ObjectD* obj) {
 
 void levelGame::onDestroyed() {
 std::cout<<"dell"<<std::endl;
-    for(auto a : *this->children)
-    {
-        delete a;
-    }
-    this->children->clear();
+
+
 }
 
 void levelGame::loadGameFromFile(std::string url) {

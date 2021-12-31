@@ -9,6 +9,9 @@
 #include "../objects/levelGame/pointArea.h"
 #include "../objects/levelGame/ObjectD.h"
 #include <random>
+#include "../objects/levelGame/timer.h"
+#include "../objects/levelGame/PointsShow.h"
+
 class levelGame: public engine::view::scene{
 public:
     levelGame(std::string name, int levelType);
@@ -23,6 +26,8 @@ private:
     std::vector<pointArea> pointsArea;
     void loadGameFromFile(std::string url);
     std::mt19937 gen;
+    timer *t;
+    PointsShow *pointsShow;
 };
 
 

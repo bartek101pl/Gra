@@ -9,7 +9,7 @@
 // Functions
 sf::RectangleShape engine::object::GameObject::getShape(){
 
-    auto*  a =(GameObject *)  this->children->at(1);
+//    auto*  a =(GameObject *)  this->children->at(1);
     return this->shape;
 }
 

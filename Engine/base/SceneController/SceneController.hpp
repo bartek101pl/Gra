@@ -22,6 +22,8 @@ namespace engine::base {
         int getID(std::string name);
         int currentScene = 0;
         static SceneController* _singleton;
+        bool isChange = true;
+        int newScene;
     public:
         void addScene(engine::view::scene *scene);
         engine::view::scene* getScene(int id);
@@ -30,6 +32,8 @@ namespace engine::base {
         void setCurrentScene(std::string name);
         engine::view::scene* getCurrentScene();
         static SceneController* getInstance();
+        int getId();
+        void update();
     };
 }
 

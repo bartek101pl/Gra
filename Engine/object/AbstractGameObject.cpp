@@ -3,6 +3,7 @@
 //
 
 #include "AbstractGameObject.hpp"
+#include "../base/SceneController/SceneController.hpp"
 
 void engine::object::AbstractGameObject::KeyboardKeyPressEvent(std::vector<event::Key> *keyList) {
     this->onKeyPressEvent(keyList);
@@ -39,18 +40,22 @@ void engine::object::AbstractGameObject::MouseKeyPressEvent(engine::event::Mouse
 void engine::object::AbstractGameObject::destroyed() {
     this->onDestroyed();
     if(this->children!= nullptr)
-        for (auto &i: *this->children) {
-            i->destroyed();
+        for(auto a : *this->children)
+        {
+            a->destroyed();
+            delete a;
         }
 
-    delete this->children;
+//    this->children->clear();
     this->children = nullptr;
 }
 
 void engine::object::AbstractGameObject::updateEvent() {
+    int a =  engine::base::SceneController::getInstance()->getId();
     this->onUpdate();
     if(this->children!= nullptr)
         for (auto& i: *this->children) {
+            if(a == engine::base::SceneController::getInstance()->getId())
             i->updateEvent();
         }
 }
