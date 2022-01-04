@@ -14,6 +14,7 @@ public:
     void onclic1();
     void onclic2();
     void onclic3();
+    void onclic4();
 
 private:
     bool isok = false;

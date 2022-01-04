@@ -8,14 +8,18 @@
 void button1::onclick() {
     switch (this->type) {
         case 1:
-            ((menu*)engine::base::SceneController::getInstance()->getScene("menu"))->onclic1();
+            ((menu*)engine::base::SceneController::getInstance()->getCurrentScene())->onclic1();
             break;
         case 2:
-            ((menu*)engine::base::SceneController::getInstance()->getScene("menu"))->onclic2();
+            ((menu*)engine::base::SceneController::getInstance()->getCurrentScene())->onclic2();
             break;
         case 3:
-            ((menu*)engine::base::SceneController::getInstance()->getScene("menu"))->onclic3();
+            ((menu*)engine::base::SceneController::getInstance()->getCurrentScene())->onclic3();
             break;
+        case 4:
+            ((menu*)engine::base::SceneController::getInstance()->getCurrentScene())->onclic4();
+            break;
+
     }
 
 }

@@ -7,33 +7,37 @@
 
 void engine::object::AbstractGameObject::KeyboardKeyPressEvent(std::vector<event::Key> *keyList) {
     this->onKeyPressEvent(keyList);
-    if(this->children!= nullptr)
+    if(this->children!= nullptr && !this->freeze)
         for (auto &i: *this->children) {
-            i->KeyboardKeyPressEvent(keyList);
+            if(i->getVisibility())
+                i->KeyboardKeyPressEvent(keyList);
         }
 }
 
 void engine::object::AbstractGameObject::KeyboardKeyReleaseEvent(std::vector<event::Key> *keyList) {
     this->onKeyReleaseEvent(keyList);
-    if(this->children!= nullptr)
+    if(this->children!= nullptr && !this->freeze)
         for (auto &i: *this->children) {
-            i->KeyboardKeyReleaseEvent(keyList);
+            if(i->getVisibility())
+                i->KeyboardKeyReleaseEvent(keyList);
         }
 }
 
 void engine::object::AbstractGameObject::MouseKeyReleaseEvent(engine::event::MouseEvent e, sf::Vector2i pos) {
     this->onMouseReleaseEvent(e,pos);
-    if(this->children!= nullptr)
+    if(this->children!= nullptr && !this->freeze)
         for (auto &i: *this->children) {
-            i->MouseKeyReleaseEvent(e,pos);
+            if(i->getVisibility())
+                i->MouseKeyReleaseEvent(e,pos);
         }
 }
 
 void engine::object::AbstractGameObject::MouseKeyPressEvent(engine::event::MouseEvent e, sf::Vector2i pos) {
     this->onMousePressEvent(e,pos);
-    if(this->children!= nullptr)
+    if(this->children!= nullptr && !this->freeze)
         for (auto &i: *this->children) {
-            i->MouseKeyPressEvent(e,pos);
+            if(i->getVisibility())
+                i->MouseKeyPressEvent(e,pos);
         }
 }
 
@@ -47,15 +51,16 @@ void engine::object::AbstractGameObject::destroyed() {
         }
 
 //    this->children->clear();
+    delete this->children;
     this->children = nullptr;
 }
 
 void engine::object::AbstractGameObject::updateEvent() {
     int a =  engine::base::SceneController::getInstance()->getId();
     this->onUpdate();
-    if(this->children!= nullptr)
+    if(this->children!= nullptr && !this->freeze)
         for (auto& i: *this->children) {
-            if(a == engine::base::SceneController::getInstance()->getId())
+            if(a == engine::base::SceneController::getInstance()->getId()&& i->getVisibility())
             i->updateEvent();
         }
 }
@@ -112,6 +117,20 @@ this->parent = parent;
 
 engine::object::AbstractGameObject *engine::object::AbstractGameObject::getChildren(int id) {
     return (this->children->at(id));
+}
+
+bool engine::object::AbstractGameObject::getVisibility() {
+    return this->visibility;
+}
+
+void engine::object::AbstractGameObject::freezeScene() {
+this->freeze = true;
+}
+
+void engine::object::AbstractGameObject::setAllVisibility() {
+    for (auto &i: *this->children) {
+        i->visibility = !i->visibility;
+    }
 }
 
 

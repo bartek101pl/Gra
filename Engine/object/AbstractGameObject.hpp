@@ -23,14 +23,19 @@ namespace engine::object {
         void initEvet();
         void destroyed();
         void updateEvent();
+        bool getVisibility();
         virtual void addChildren(AbstractGameObject *obj) final;
         virtual void deleteChildren(int id) final;
         virtual int getId(AbstractGameObject *obj) final;
         virtual AbstractGameObject* getChildren(int id) final;
+        virtual void freezeScene();
+        virtual void setAllVisibility();
     protected:
         void setParent(AbstractGameObject * parent);
         std::vector<AbstractGameObject*> *children = nullptr;
         AbstractGameObject *parent = nullptr;
+        bool visibility = true;
+        bool freeze = false;
     };
 }
 

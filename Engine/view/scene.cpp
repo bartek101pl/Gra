@@ -13,9 +13,10 @@ std::string engine::view::scene::getName() {
 }
 
 void engine::view::scene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    if(this->children!= nullptr)
+    if(this->children!= nullptr&&!this->freeze)
         for (auto& item : *this->children)
         {
-            ((engine::object::GameObject*)item)->draw(target,states);
+            if(item->getVisibility())
+                ((engine::object::GameObject*)item)->draw(target,states);
         }
 }

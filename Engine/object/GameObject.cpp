@@ -67,6 +67,7 @@ void engine::object::GameObject::collisionCalc(GameObject *ob1) {
                 this->enterCollision(ob1);
                 ob1->enterCollision(this);
                 lastColButton = ob1;
+                int c  = 1/1;
 
             }
 

@@ -13,7 +13,7 @@ public:
     timer(float time,float x, float y);
     void onUpdate() override;
     void addTime(float t);
-
+    float getStartTime();
     void onDestroyed() override;
 
 private:

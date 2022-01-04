@@ -42,3 +42,7 @@ void timer::onDestroyed() {
     AbstractUserEventObject::onDestroyed();
 
 }
+
+float timer::getStartTime() {
+    return this->timeStart;
+}

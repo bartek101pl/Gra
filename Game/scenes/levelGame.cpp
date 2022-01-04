@@ -5,18 +5,18 @@
 #include "levelGame.h"
 #include "../objects/levelGame/player.h"
 #include "../objects/menu/bg.h"
-#include "../objects/levelGame/Wall.h"
-#include "../objects/levelGame/ObjectD.h"
 #include <cstdlib>
-#include <ctime>
 #include "../../Engine/base/SceneController/SceneController.hpp"
-
+#include "../objects/levelGame/stopShow.hpp"
+#include "../../Engine/base/engineBase.hpp"
+#include "final.hpp"
 
 levelGame::levelGame(std::string name, int levelType): engine::view::scene(name){
     this->levelType = levelType;
 }
 
 void levelGame::onInit() {
+    status = false;
 //    std::cout<<"Size: ";std::cout<< this->children->size()<<std::endl;
     this->gen = std::mt19937(this->rd());
     //TODO improve level loading
@@ -59,7 +59,7 @@ void levelGame::onInit() {
     this->addChildren(t);
     this->pointsShow = new PointsShow(600,775);
     this->addChildren(this->pointsShow);
-
+    this->addChildren(new stopShow());
 }
 
 void levelGame::onUpdate() {
@@ -73,11 +73,14 @@ void levelGame::onUpdate() {
             obj1->collisionCalc(obj2);
         }
     }
+    if(tim >0)
+        tim-=engine::base::engineBase::deltaTime.asSeconds();
 }
 
 void levelGame::hit() {
 
-    engine::base::SceneController::getInstance()->setCurrentScene(0);
+    ((final*)engine::base::SceneController::getInstance()->getScene(3))->setData(this->pointsShow->getPoints(),this->t->getStartTime());
+    engine::base::SceneController::getInstance()->setCurrentScene(3);
 }
 
 void levelGame::point(ObjectD* obj) {
@@ -105,4 +108,24 @@ std::cout<<"dell"<<std::endl;
 
 void levelGame::loadGameFromFile(std::string url) {
     //read form file all files;
+}
+
+void levelGame::onKeyPressEvent(std::vector<engine::event::Key> *keyList) {
+    if(this->isKeyPress(*keyList,sf::Keyboard::Escape)&&!status && tim<=0) {
+        this->setAllVisibility();
+        status = true;
+        tim = 0.5;
+    }
+}
+
+void levelGame::resume() {
+    if(status && tim<=0) {
+        this->setAllVisibility();
+        status = false;
+        tim = 0.5;
+    }
+}
+
+void levelGame::endGame() {
+    engine::base::SceneController::getInstance()->setCurrentScene(0);
 }

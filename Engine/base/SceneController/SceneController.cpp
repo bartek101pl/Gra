@@ -86,11 +86,16 @@ int engine::base::SceneController::getId() {
     return this->currentScene;
 }
 
-void engine::base::SceneController::update() {
+bool engine::base::SceneController::update() {
     if(!this->isChange) {
         this->sceneList.at(this->currentScene)->destroyed();
         this->currentScene = this->newScene;
         this->isChange = true;
         this->sceneList.at(this->currentScene)->initEvet();
     }
+    return this->end;
+}
+
+void engine::base::SceneController::End() {
+this->end = true;
 }

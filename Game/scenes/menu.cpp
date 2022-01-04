@@ -13,13 +13,16 @@ void menu::onInit() {
         int x = (1000 - 300) / 2;
         int y = 100;
         this->addChildren(
-                new button1("../assets/buttonBG.png", sf::Color::Black, "Poziom 1", 30, x, y, 300, 100, 80, 25, 1));
+                new button1("../assets/buttonBG.png", sf::Color::Black, "Level 1", 30, x, y, 300, 100, 100, 25, 1));
         this->addChildren(
-                new button1("../assets/buttonBG.png", sf::Color::Black, "Poziom 2", 30, x, y + 120, 300, 100, 80, 25,
+                new button1("../assets/buttonBG.png", sf::Color::Black, "Level 2", 30, x, y + 120, 300, 100, 100, 25,
                             2));
+    this->addChildren(
+            new button1("../assets/buttonBG.png", sf::Color::Black, "Help", 30, x, y + (2 * 120), 300, 100, 120, 25,
+                        3));
         this->addChildren(
-                new button1("../assets/buttonBG.png", sf::Color::Black, "Poziom 3", 30, x, y + (2 * 120), 300, 100, 80,
-                            25, 3));
+                new button1("../assets/buttonBG.png", sf::Color::Black, "Exit", 30, x, y + (3 * 120), 300, 100, 120,
+                            25, 4));
         std::cout << this->children->size() << std::endl;
 
 }
@@ -31,5 +34,8 @@ void menu::onclic2() {
     std::cout<<"Dziala 2"<<std::endl;
 }
 void menu::onclic3() {
-    std::cout<<"Dziala 3"<<std::endl;
+    engine::base::SceneController::getInstance()->setCurrentScene(2);
+}
+void menu::onclic4() {
+    engine::base::SceneController::getInstance()->End();
 }

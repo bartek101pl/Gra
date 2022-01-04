@@ -20,6 +20,7 @@ namespace engine::view {
         scene(std::string name);
         virtual std::string getName() final;
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
     protected:
         std::string name;
 
